@@ -81,7 +81,7 @@ pdfRouter.post('/upload', authenticateUser, upload.single('pdf'), async (req, re
     }
   });
 
-  pdfRouter.get('/:pdfId', authenticateUser, async (req, res) => {
+  pdfRouter.get('/:pdfId', async (req, res) => {
     try {
       const pdfId = req.params.pdfId;
       const pdf = await PDFModel.findById(pdfId);
@@ -90,9 +90,9 @@ pdfRouter.post('/upload', authenticateUser, upload.single('pdf'), async (req, re
         return res.status(404).send({ message: 'PDF not found' });
       }
   
-      if (pdf.userId.toString() !== req.user._id.toString()) {
-        return res.status(403).send({ message: 'You do not have permission to access this PDF' });
-      }
+      // if (pdf.userId.toString() !== req.user._id.toString()) {
+      //   return res.status(403).send({ message: 'You do not have permission to access this PDF' });
+      // }
   
       // Extract the key from the full file path
       const key = pdf.filePath.split('/').pop();
@@ -120,6 +120,8 @@ pdfRouter.post('/upload', authenticateUser, upload.single('pdf'), async (req, re
       res.status(500).send({ message: error.message });
     }
   });
+
+
 
 
 
