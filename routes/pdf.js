@@ -31,7 +31,8 @@ pdfRouter.post('/upload', authenticateUser, upload.single('pdf'), async (req, re
     // The multer-s3 should attach the file information to the request object.
     // With AWS SDK v3, it might be under a different property, such as 'key' or you may need to construct the file URL manually.
     const { originalname, key } = req.file;
-    const location = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+    // const location = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
+    const location = key;
 
     // Create a new PDF entry using your model, assuming your database model accepts these fields.
     const newPDF = await PDFModel.create({
