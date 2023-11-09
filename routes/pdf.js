@@ -37,7 +37,7 @@ pdfRouter.post('/upload', authenticateUser, upload.single('pdf'), async (req, re
     // Create a new PDF entry using your model, assuming your database model accepts these fields.
     const newPDF = await PDFModel.create({
       filePath: location, // This should be the URL where the file is accessible.
-      originalName: originalname,
+      originalName: originalname.slice(0,-4),
       userId: req.user._id, // This assumes that 'req.user' is populated by your authentication middleware.
     });
 
